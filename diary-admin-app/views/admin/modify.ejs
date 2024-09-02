@@ -1,0 +1,180 @@
+<meta />
+<style></style>
+
+<!-- Bread crumb and right sidebar toggle -->
+<div class="page-breadcrumb bg-white">
+  <div class="row align-items-center">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+      <h4 class="page-title">Admin List</h4>
+    </div>
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+      <div class="d-md-flex">
+        <ol class="breadcrumb ms-auto">
+          <li><a href="#" class="fw-normal">Admin Table</a></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+<!-- End Bread crumb and right sidebar toggle -->
+
+<!-- Container fluid  -->
+<div class="container-fluid">
+  <!-- Start Page Content -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="white-box">
+        <h3 class="box-title">관리자 계정 수정</h3>
+
+        <!-- 관리자 등록 폼 영역 -->
+        <form id="modifyForm" action="/admin/modify" method="post">
+          <input type="hidden" id="admin_member_id" name="admin_member_id" value="<%=admin.admin_member_id%>" />
+
+          <!-- 관리자 계정, 암호, 소속회사 UI 제공 -->
+          <div class="row">
+            <!-- 아이디 영역 -->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="control-label">관리자 ID</label>
+                <input
+                  type="text"
+                  id="admin_id"
+                  name="admin_id"
+                  readonly
+                  value="<%=admin.admin_id%>"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <!-- 비밀번호 영역 -->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="control-label">관리자 비밀번호</label>
+                <input
+                  type="password"
+                  id="admin_password"
+                  name="admin_password"
+                  value="<%=admin.admin_password%>"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <!-- 소속회사 영역 -->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="control-label" for="company_code">소속회사</label>
+                <select
+                  class="form-control"
+                  id="company_code"
+                  name="company_code"
+                >
+                  <option value="9" <% if(admin.company_code == "9"){ %> selected <% } %> >전체</option>
+                  <option value="0" <% if(admin.company_code == "0"){ %> selected <% } %> >자회사</option>
+                  <option value="1" <% if(admin.company_code == "1"){ %> selected <% } %> >협력사</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- 부서명, 이름, 메일주소 UI 제공 -->
+          <div class="row">
+            <!-- 부서명 영역 -->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="control-label" for="dept_name">부서명</label>
+                <input
+                  type="text"
+                  id="dept_name"
+                  name="dept_name"
+                  value="<%=admin.dept_name%>"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <!-- 이름 영역 -->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="control-label" for="admin_name">이름</label>
+                <input
+                  type="text"
+                  id="admin_name"
+                  name="admin_name"
+                  value="<%=admin.admin_name%>"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <!-- 메일주소 영역 -->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="control-label" for="email">메일주소</label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  value="<%=admin.email%>"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- 전화번호, 사용여부 UI 제공 -->
+          <div class="row">
+            <!-- 전화번호 영역 -->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="control-label" for="telephone">전화번호</label>
+                <input
+                  type="text"
+                  id="telephone"
+                  name="telephone"
+                  value="<%=admin.telephone%>"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <!-- 사용여부 영역 -->
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="control-label" for="used_yn_code"
+                  >사용 여부</label
+                >
+                <select
+                  class="form-control"
+                  id="used_yn_code"
+                  name="used_yn_code"
+                >
+                  <option value="9" <% if(admin.used_yn_code == "9"){ %> selected <% } %> >선택</option>
+                  <option value="1" <% if(admin.used_yn_code == "1"){ %> selected <% } %> >사용함</option>
+                  <option value="0" <% if(admin.used_yn_code == "0"){ %> selected <% } %> >사용 안 함</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-sm-4"></div>
+          </div>
+
+          <!-- 저장, 목록 버튼 영역 -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">수정</button>
+            <button type="button" class="btn btn-danger" id="btnDelete">
+              삭제
+            </button>
+            <a href="/admin/list" class="btn btn-info">목록</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Container fluid  -->
+
+<script>
+    $("#btnDelete").click(function(){
+        if(confirm("정말로 삭제하시겠습니까?")){
+            location.href = "/admin/delete?id=<%=admin.admin_member_id%>";
+        }
+    });
+</script>
